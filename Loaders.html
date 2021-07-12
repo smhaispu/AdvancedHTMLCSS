@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loaders</title>
+    <style>
+        .loaders {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: beige;
+            flex-wrap: wrap;
+        }
+
+        .loaders>div {
+            margin: 100px;
+        }
+
+        /* SPINNER */
+        .spinner {
+            position: relative;
+            height: 100px;
+            width: 100px;
+        }
+
+        .spinner div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 10px solid transparent;
+            border-top-color: #ce5252;
+            border-radius: 50%;
+            animation: spinnerOne 1.2s linear infinite;
+            box-sizing: border-box;
+        }
+
+        .spinner div:nth-child(2) {
+            border: 10px solid transparent;
+            border-bottom-color: #ce5252;
+            animation: spinnerTwo 1.2s linear infinite;
+        }
+
+
+
+        /* BOUNCER */
+        .bouncer {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            width: 100px;
+        }
+
+        .bouncer div {
+            width: 20px;
+            height: 20px;
+            background: #5396d3;
+            border-radius: 50%;
+            animation: Bounce 0.5s ease infinite alternate;
+        }
+
+        .bouncer div:nth-child(2) {
+            opacity: 0.8;
+            animation-delay: 0.1s;
+        }
+
+        .bouncer div:nth-child(3) {
+            opacity: 0.6;
+            animation-delay: 0.2s;
+        }
+
+        .bouncer div:nth-child(4) {
+            opacity: 0.4;
+            animation-delay: 0.3s;
+        }
+
+
+        /* FLIPPER */
+
+        .flipper {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            perspective: 200px;
+        }
+
+        .flipper div {
+            height: 50px;
+            width: 50px;
+            background: coral;
+            position: absolute;
+            animation: flip 2s infinite;
+            transform-origin: right bottom;
+        }
+
+        .flipper div:nth-child(2) {
+            animation-delay: 1s;
+            opacity: 0.5;
+        }
+
+
+        /* ALL KEYFRAME ANIMATIONS */
+        @keyframes spinnerOne {
+            0% {
+                transform: rotate(0deg);
+                border-width: 1px
+            }
+
+            50% {
+                transform: rotate(180deg);
+                border-width: 10px
+            }
+
+            100% {
+                transform: rotate(360deg);
+                border-width: 1px
+            }
+        }
+
+        @keyframes spinnerTwo {
+            0% {
+                transform: rotate(0deg);
+                border-width: 10px
+            }
+
+            50% {
+                transform: rotate(180deg);
+                border-width: 1px
+            }
+
+            100% {
+                transform: rotate(360deg);
+                border-width: 10px
+            }
+        }
+
+        @keyframes Bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-100px);
+            }
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0) rotateY(0)
+            }
+
+            25% {
+                transform: rotateX(0) rotateY(180deg)
+            }
+
+            50% {
+                transform: rotateX(180deg) rotateY(180deg)
+            }
+
+            75% {
+                transform: rotateX(180deg) rotateY(0)
+            }
+
+            100% {
+                transform: rotateX(0) rotateY(0)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loaders">
+        <!-- SPINNER HTML -->
+        <div>
+            <h1>Spinner</h1>
+            <div class="spinner">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- BOUNCER HTML -->
+        <div>
+            <h1 style="margin-bottom: 100px">Bouncer</h1>
+            <div class="bouncer">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- FLIPPER HTML -->
+        <div>
+            <h1>Flipper</h1>
+            <div class="flipper">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
