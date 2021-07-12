@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" onkeydown="debouncedhandleChange(event)">
+    <script>
+        const arr = [1, 2, 3, 4, 5];
+        Array.prototype.myReduce = function (callback, initialValue) {
+            let accumulator = initialValue;
+            for (let i = 0; i < this.length; i++) {
+                accumulator = callback(accumulator, this[i], i, this);
+            }
+            return accumulator;
+        }
+
+
+        Array.prototype.myForEach = function (callback) {
+            for (let i = 0; i < this.length; i++) {
+                callback(this[i], i, this);
+            }
+        }
+
+        //FILTER
+        Array.prototype.myFilter = function (callback) {
+            const arr = [];
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], i, this)) {
+                    arr.push(this[i]);
+                }
+            }
+
+            return arr;
+
+        }
+
+
+        //MAP
+
+        Array.prototype.myMap = function (callback) {
+            const output = [];
+            for (let i = 0; i < this.length; i++) {
+                output.push(callback(this[i], i, this))
+            }
+
+            return output;
+
+        }
+
+
+        //FIND
+        Array.prototype.myFind = function (callback) {
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], i, this)) {
+                    return this[i];
+                }
+            }
+        }
+
+
+        const name = {
+            fname: 'Swapnil',
+            lname: 'Mhaispurkar'
+        }
+
+        const printName = function (city, state) {
+            console.log(this.fname + ' ' + this.lname + ' ' + city + ' ' + state);
+        }
+
+        const printNameBound = printName.bind(name, 'Nagpur');
+
+        /* printNameBound('Maharashtra'); */
+
+        //CUSTOM BIND METHOD
+
+        Function.prototype.myBind = function (...args) {
+            const obj = this;
+            const reference = args[0];
+            const params = args.slice(1);
+
+            return (function (...args2) {
+                return obj.apply(reference, ...params, ...args2);
+            })
+        }
+
+        const printNameBound2 = printName.myBind(name, 'Nagpur');
+
+        /* printNameBound('Maharashtra'); */
+
+
+
+        /* INFINITE CURRING */
+
+
+        function sum(a) {
+            return function (b) {
+                if (b) {
+                    return sum(a + b);
+                } else {
+                    return a;
+                }
+            }
+        }
+
+        /* console.log(sum(2)(3)(4)(5)()); */
+
+        /* console.log(arr.myMap((a)=>{
+          return a + 3;
+        })); */
+
+
+        //IMPLEMENT DEBOUNCE
+
+
+
+        const handleChange = (event) => {
+            console.log(event.target.value);
+        }
+
+
+        function debounced(logic, delay) {
+            let clear;
+            return function () {
+                let context = this;
+                let args = arguments;
+                clearTimeout(clear);
+                clear = setTimeout(() => {
+                    logic.apply(context, args);
+                }, delay)
+            }
+        }
+
+
+        function throttle(logic, waiting) {
+            let isWaiting = false;
+
+            return function () {
+                let args = arguments;
+                let context = this;
+                if (!isWaiting) {
+                    isWaiting = true;
+                    setTimeout(() => {
+                        logic.apply(context, args);
+                        isWaiting = false;
+                    }, waiting)
+                }
+
+            }
+
+
+        }
+
+        const debouncedhandleChange = throttle(handleChange, 2000);
+    </script>
+</body>
+
+</html>
